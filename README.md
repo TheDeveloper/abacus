@@ -33,7 +33,7 @@ metrics.printPeriodically(10)
 #### Configuration
 Abacus supports 2 configuration methods. It's compatable with [node-config](http://lorenwest.github.com/node-config/latest/), so if you're using node-config in your parent project you can set an abacus property in your configuration object and abacus will pick it up automatically.
 
-Alternatively, you can pass a configuration object directly to abacuse on instantiation: `new abacus(config);`. See usage example.
+Alternatively, you can pass a configuration object directly to abacus on instantiation: `new abacus(config);`. See usage example.
 
 #### StatsD
 Abacus can be configured to send its counters to an instance of [StatsD](https://github.com/etsy/statsd/). You can configure the StatsD connection as shown in the example.
