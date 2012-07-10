@@ -1,5 +1,5 @@
 ### Abacus
-A simple tool to count, report, and plot application metrics.
+A simple node.js module to count, report, and plot application metrics.
 
 #### Install
     npm install abacus
