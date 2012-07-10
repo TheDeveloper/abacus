@@ -37,3 +37,8 @@ Alternatively, you can pass a configuration object directly to abacus on instant
 
 #### StatsD
 Abacus can be configured to send its counters to an instance of [StatsD](https://github.com/etsy/statsd/). You can configure the StatsD connection as shown in the example.
+
+#### Logging
+This module uses [debug](https://github.com/visionmedia/debug/), and therefore obeys the same output control scheme. You can see all output from abacus by setting the environment variable DEBUG=*
+
+Sub-sections of debug output can be controlled by setting for e.g. DEBUG=abacus:abacus. Read debug's documentation for more on output control.
