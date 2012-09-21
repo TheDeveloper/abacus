@@ -6,7 +6,7 @@ A simple node.js module to count, report, and plot application metrics.
     
 #### Usage
 ````
-var metrics = require('abacus');
+var abacus = require('abacus');
 var config = {
   statsD: {
     connection:{
@@ -20,8 +20,14 @@ var config = {
 
 var metrics = new abacus(config);
 
+// increment by 1
 metrics.increment('metricName');
-metrics.increment('incrementByFive', 5);
+
+// increment by 5
+metrics.increment('metricName', 5);
+
+// set value of metric
+metrics.set('metricName',153)
 
 // Get value of metric
 metrics.get('metricName');
