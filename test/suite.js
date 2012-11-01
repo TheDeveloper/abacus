@@ -1,22 +1,48 @@
-var vows = require('vows');
 var abacus = require('../lib/abacus');
-var assert = require('assert');
+var should = require('should');
+var dgram = require('dgram');
 
-vows
-  .describe('Now we are going to find out if we can count')
-  .addBatch({
-    "Abacus": {
-      topic: new abacus(),
-      "When incrementing some counters": {
-        topic: function(abacus){
-          abacus.increment('test');
-          abacus.increment('testCustomIncrement', 7);
-          return abacus;
-        },
-        "Counter values should be set and the value should be as incremented": function(abacus){
-          assert.equal(abacus.get('test'), 1);
-          assert.equal(abacus.get('testCustomIncrement'), 7);
-        }
-      }
+describe('When counting metrics', function(){
+  var metrics = new abacus();
+
+  it('should increment the metric by 1 when no increment value given', function(done){
+    metrics.increment('myBankBalance');
+    metrics.get('myBankBalance').should.equal(1);
+    metrics.increment('myBankBalance');
+    metrics.getCounters().myBankBalance.should.equal(2);
+    done();
+  });
+
+  it('should increment the metric by given value when given', function(done){
+    metrics.increment('twitterFollowers', 50);
+    metrics.get('twitterFollowers').should.equal(50);
+    metrics.increment('twitterFollowers', 12);
+    metrics.get('twitterFollowers').should.equal(62);
+    done();
+  });
+});
+
+describe('When persisting to statsD', function(){
+  var statsDConfig = {
+    connection: {
+      host: 'localhost',
+      port: 8623
     }
-}).export(module);
+  };
+
+  var socket;
+
+  before(function(done){
+    socket = dgram.createSocket('udp4');
+    socket.bind(statsDConfig.connection.port);
+    done();
+  });
+  var metrics = new abacus({statsD: statsDConfig, debug:true});
+
+  it('Flushes counters to statsD server', function(done){
+    metrics.increment('persistMePlease');
+    socket.on('message', function(){
+      done();
+    });
+  });
+});
