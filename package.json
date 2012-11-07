@@ -1,6 +1,6 @@
 {
   "name": "abacus",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Counter library with statsD support",
   "main": "lib/abacus.js",
   "scripts": {
