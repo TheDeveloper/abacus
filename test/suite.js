@@ -63,9 +63,8 @@ describe('When persisting to statsD', function(){
   });
 
   it('Flushes counters to statsD periodically', function(done){
-    var metrics = new abacus({statsD: statsDConfig, resetOnFlush: true});
+    var metrics = new abacus({statsD: statsDConfig, resetOnFlush: true, flushFrequency: 1});
     metrics.increment('flushyFlush');
-    metrics.flushPeriodically(1);
 
     var received = 0;
     socket.on('message', function(){
