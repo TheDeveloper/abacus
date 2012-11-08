@@ -15,7 +15,9 @@ var config = {
     },
     // This is the prefix for all metric names sent to statsD / graphite
     metricPrefix: 'apps.abacus.'
-  }
+  },
+  resetOnFlush: true,
+  debug: false
 }
 
 var metrics = new abacus(config);
@@ -33,7 +35,11 @@ metrics.set('metricName',153)
 metrics.get('metricName');
 
 // Print a summary of counters to STDOUT every 10 seconds. Remember to set DEBUG environment variable
-metrics.printPeriodically(10)
+metrics.printPeriodically(10);
+
+// Periodically flush counters to statsD. This is opposed to sending the counter each time it is changed
+// If config.resetOnFlush is false, the counters will be cumulative. Otherwise, they're reset to 0 on each flush.
+metrics.flushPeriodically(60000); // in Milliseconds. Flush every 60 seconds
 ````
 
 #### Configuration
