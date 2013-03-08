@@ -46,22 +46,6 @@ describe('When persisting to statsD', function(){
     });
   });
 
-  it('Invokes debug handler if there was an error with statsD', function(done){
-    var statsDConfig = {
-      connection: {
-        host: 'badhost',
-        port: 9853
-      }
-    };
-    var metrics = new abacus({statsD: statsDConfig, debug: true});
-    metrics.increment('dontCrash');
-
-    metrics = new abacus({statsD: statsDConfig, debug: function(){
-      done();
-    }});
-    metrics.increment('dontCrash');
-  });
-
   it('Flushes counters to statsD periodically', function(done){
     var metrics = new abacus({statsD: statsDConfig, resetOnFlush: true, flushFrequency: 1});
     metrics.increment('flushyFlush');

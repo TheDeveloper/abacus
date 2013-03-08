@@ -21,8 +21,8 @@
   "author": "Geoff Wagstaff",
   "license": "MIT",
   "dependencies": {
-    "node-statsd": "0.0.3",
-    "should": "~1.2.0"
+    "should": "~1.2.0",
+    "statsd-client": "0.0.12"
   },
   "devDependencies": {
     "mocha": "~1.6.0"
