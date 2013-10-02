@@ -1,12 +1,17 @@
-### Abacus
+# Abacus
+
 A simple node.js module to count, report, and plot application metrics.
 
-#### Install
-    npm install abacus
-    
-#### Usage
+# Install
+````sh
+npm install abacus
 ````
-var abacus = require('abacus');
+
+## Usage
+
+````javascript
+var Abacus = require('abacus');
+
 var config = {
   statsD: {
     connection:{
@@ -16,11 +21,13 @@ var config = {
     // This is the prefix for all metric names sent to statsD / graphite
     metricPrefix: 'apps.abacus.'
   },
+  flushFrequency: 60000,
+  printFrequency: 10000,
   resetOnFlush: true,
   debug: false
-}
+};
 
-var metrics = new abacus(config);
+var metrics = new Abacus(config);
 
 // increment by 1
 metrics.increment('metricName');
@@ -29,28 +36,28 @@ metrics.increment('metricName');
 metrics.increment('metricName', 5);
 
 // set value of metric
-metrics.set('metricName',153)
+metrics.set('metricName', 153)
 
 // Get value of metric
 metrics.get('metricName');
 
-// Print a summary of counters to STDOUT every 10 seconds. Remember to set DEBUG environment variable
-metrics.printPeriodically(10);
+// Print a summary of counters to STDOUT every 10 seconds. This is automatically setup if config.printFrequency is set.
+metrics.printPeriodically(10000);
 
 // Periodically flush counters to statsD. This is opposed to sending the counter each time it is changed
 // If config.resetOnFlush is false, the counters will be cumulative. Otherwise, they're reset to 0 on each flush.
-metrics.flushPeriodically(60000); // in Milliseconds. Flush every 60 seconds
+// This is automatically setup if config.flushFrequency is set.
+metrics.flushPeriodically(60000); // in milliseconds. Flush every 60 seconds
 ````
 
-#### Configuration
-Abacus supports 2 configuration methods. It's compatable with [node-config](http://lorenwest.github.com/node-config/latest/), so if you're using node-config in your parent project you can set an abacus property in your configuration object and abacus will pick it up automatically.
+### Configuration
 
-Alternatively, you can pass a configuration object directly to abacus on instantiation: `new abacus(config);`. See usage example.
+You can pass a configuration object directly to abacus on instantiation: `new Abacus(config);`. See usage example.
 
-#### StatsD
+### StatsD
 Abacus can be configured to send its counters to an instance of [StatsD](https://github.com/etsy/statsd/). You can configure the StatsD connection as shown in the example.
 
-#### Logging
+### Logging
 This module uses [debug](https://github.com/visionmedia/debug/), and therefore obeys the same output control scheme. You can see all output from abacus by setting the environment variable DEBUG=*
 
 Sub-sections of debug output can be controlled by setting for e.g. DEBUG=abacus:abacus. Read debug's documentation for more on output control.
