@@ -1,9 +1,9 @@
-var abacus = require('../lib/abacus');
+var Abacus = require('../lib/abacus');
 var should = require('should');
 var dgram = require('dgram');
 
 describe('When counting metrics', function(){
-  var metrics = new abacus();
+  var metrics = new Abacus();
 
   it('should increment the metric by 1 when no increment value given', function(done){
     metrics.increment('myBankBalance');
@@ -26,7 +26,8 @@ describe('When persisting to statsD', function(){
   var statsDConfig = {
     connection: {
       host: 'localhost',
-      port: 8623
+      port: 8623,
+      maxBufferSize: 0
     }
   };
 
@@ -37,7 +38,7 @@ describe('When persisting to statsD', function(){
     socket.bind(statsDConfig.connection.port);
     done();
   });
-  var metrics = new abacus({statsD: statsDConfig, debug:true});
+  var metrics = new Abacus({statsD: statsDConfig, debug:true});
 
   it('Flushes counters to statsD server', function(done){
     metrics.increment('persistMePlease');
@@ -47,7 +48,7 @@ describe('When persisting to statsD', function(){
   });
 
   it('Flushes counters to statsD periodically', function(done){
-    var metrics = new abacus({statsD: statsDConfig, resetOnFlush: true, flushFrequency: 1});
+    var metrics = new Abacus({statsD: statsDConfig, resetOnFlush: true, flushFrequency: 1});
     metrics.increment('flushyFlush');
 
     var received = 0;
