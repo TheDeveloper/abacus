@@ -1,4 +1,5 @@
-# Abacus
+Abacus
+===
 
 A simple node.js module to count, report, and plot application metrics.
 
@@ -24,7 +25,7 @@ var config = {
   flushFrequency: 60000,
   printFrequency: 10000,
   resetOnFlush: true,
-  debug: false
+  debug: console.log // Prints messages from abacus to STDOUT
 };
 
 var metrics = new Abacus(config);
@@ -36,7 +37,7 @@ metrics.increment('metricName');
 metrics.increment('metricName', 5);
 
 // set value of metric
-metrics.set('metricName', 153)
+metrics.set('metricName', 153);
 
 // Get value of metric
 metrics.get('metricName');
@@ -58,6 +59,4 @@ You can pass a configuration object directly to abacus on instantiation: `new Ab
 Abacus can be configured to send its counters to an instance of [StatsD](https://github.com/etsy/statsd/). You can configure the StatsD connection as shown in the example.
 
 ### Logging
-This module uses [debug](https://github.com/visionmedia/debug/), and therefore obeys the same output control scheme. You can see all output from abacus by setting the environment variable DEBUG=*
-
-Sub-sections of debug output can be controlled by setting for e.g. DEBUG=abacus:abacus. Read debug's documentation for more on output control.
+The `debug` option allows you to pass in a function that will be invoked each time abacus logs something. If not set, the log will be silently discarded.

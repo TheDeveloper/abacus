@@ -38,7 +38,7 @@ describe('When persisting to statsD', function(){
     socket.bind(statsDConfig.connection.port);
     done();
   });
-  var metrics = new Abacus({statsD: statsDConfig, debug:true});
+  var metrics = new Abacus({ statsD: statsDConfig });
 
   it('Flushes counters to statsD server', function(done){
     metrics.increment('persistMePlease');
@@ -48,7 +48,7 @@ describe('When persisting to statsD', function(){
   });
 
   it('Flushes counters to statsD periodically', function(done){
-    var metrics = new Abacus({statsD: statsDConfig, resetOnFlush: true, flushFrequency: 1});
+    var metrics = new Abacus({ statsD: statsDConfig, resetOnFlush: true, flushFrequency: 1 });
     metrics.increment('flushyFlush');
 
     var received = 0;
