@@ -21,10 +21,10 @@
   "author": "Geoff Wagstaff",
   "license": "MIT",
   "dependencies": {
-    "should": "~1.2.0",
-    "statsd-client": "0.0.12"
+    "statsd-client": "0.0.15"
   },
   "devDependencies": {
-    "mocha": "~1.6.0"
+    "mocha": "~1.13.0",
+    "should": "~1.3.0"
   }
 }
