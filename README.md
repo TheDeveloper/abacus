@@ -26,6 +26,7 @@ var config = {
   printFrequency: 10000,
   resetOnFlush: true, // set all values to 0 on flush
   deleteOnFlush: false, // delete all values on flush (will not send 0's)
+  printEmpty: true, // whether or not to print empty objects (default false)
   debug: console.log // Prints messages from abacus to STDOUT
 };
 
