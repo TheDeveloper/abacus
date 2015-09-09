@@ -28,7 +28,8 @@ var config = {
   deleteOnFlush: false, // delete all values on flush (will not send 0's)
   printEmpty: true, // whether or not to print empty objects (default false)
   printOnFlush: false, // print the metrics just before flushing them (default false)
-  debug: console.log // Prints messages from abacus to STDOUT
+  printLabel: 'myMetrics: ', // prefix printed counters with this string (default '')
+  debug: console.log // Function to log messages from abacus (default none)
 };
 
 var metrics = new Abacus(config);
@@ -49,9 +50,12 @@ metrics.get('metricName');
 metrics.printPeriodically(10000);
 
 // Periodically flush counters to statsD. This is opposed to sending the counter each time it is changed
-// If config.resetOnFlush is false, the counters will be cumulative. Otherwise, they're reset to 0 on each flush.
+// If `config.resetOnFlush` and `config.deleteOnFlush` are false, the counters will be cumulative. Otherwise, they're reset to 0 or cleared on each flush.
 // This is automatically setup if config.flushFrequency is set.
 metrics.flushPeriodically(60000); // in milliseconds. Flush every 60 seconds
+
+// Immediately flush all metrics and close the statsD connection
+metrics.stop();
 ````
 
 ### Configuration
