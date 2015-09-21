@@ -2,9 +2,9 @@
   "name": "abacus",
   "version": "0.2.4",
   "description": "Counter library with statsD support",
-  "main": "lib/abacus.js",
+  "main": "lib/Abacus.js",
   "scripts": {
-    "test": "test/suite.js"
+    "test": "mocha test/suite"
   },
   "repository": {
     "type": "git",
